@@ -4,9 +4,10 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SpotImages', {
+    await queryInterface.createTable('Bookings', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,12 +23,21 @@ module.exports = {
         },
         onDelete: 'CASCADE'
       },
-      url: {
-        type: Sequelize.STRING,
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
+      },
+      startDate: {
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
-      preview: {
-        type: Sequelize.BOOLEAN,
+      endDate: {
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       createdAt: {
@@ -43,7 +53,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "SpotImages"
+    options.tableName = "Bookings"
     await queryInterface.dropTable(options);
   }
 };

@@ -30,7 +30,7 @@ module.exports = {
       lng: -118.278551,
       name: 'Addam\'s Family Residence',
       description: 'The house where something was filmed.',
-      price: 700000
+      price: 135
     },
     {
       ownerId: 2,
@@ -42,7 +42,7 @@ module.exports = {
       lng: -81.8006162,
       name: 'The Hemingway Home and Museum',
       description: 'Former residence of Ernest Hemingway in the 1930s.',
-      price: 3000000
+      price: 300
     },
     {
       ownerId: 2,
@@ -54,7 +54,7 @@ module.exports = {
       lng: -120.0930663,
       name: 'Neverland Railway Station',
       description: 'Something something Michael Jackson, Teehee.',
-      price: 2000000
+      price: 430
     },
     {
       ownerId: 3,
@@ -66,7 +66,7 @@ module.exports = {
       lng: -118.4549588,
       name: 'Tom Cruise\'s Childhood Home',
       description: 'Scientology and other stuff.',
-      price: 600000
+      price: 66
     }
    ], { validate: true});
   },
