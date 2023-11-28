@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
@@ -73,6 +73,8 @@ router.get(
     if (user) {
       const safeUser = {
         id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         username: user.username,
       };
