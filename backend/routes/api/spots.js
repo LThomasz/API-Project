@@ -132,7 +132,7 @@ router.get('/', async (req, res) => {
 // Get details of Spot from id
 router.get(
   '/:spotId',
-  async (req, res) => {
+  async (req, res, next) => {
     const { spotId } = req.params;
     const spot = await Spot.findByPk(spotId);
     if (spot) {
@@ -183,16 +183,16 @@ router.put(
       err.title = 'Authentication required'
       return next(err)
 
-    } else if (user.id !== spot.ownerId) {
-      const err = new Error('Forbidden');
-      err.status = 403;
-      err.title = 'Forbidden'
-      return next(err)
-
     } else if (!spot) {
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
       err.title = 'Spot coulnd\'t be found'
+      return next(err)
+
+    } else if (user.id !== spot.ownerId) {
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.title = 'Forbidden'
       return next(err)
 
     } else {
@@ -263,7 +263,7 @@ router.post(
         spot.ownerId = user.id;
         await spot.save();
 
-        return res.json(spot)
+        return res.status(201).json(spot)
       } else {
         const err = new Error('Authentication required');
         err.status = 401;
