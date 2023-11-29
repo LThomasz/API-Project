@@ -41,7 +41,7 @@ app.use(
   })
 );
 
-app.use(routes); //maybe on the bottom?
+app.use(routes);
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
