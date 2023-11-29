@@ -47,12 +47,36 @@ router.get(
   '/current',
   async (req, res) => {
     const { user } = req;
+    const Spots = [];
     if (user) {
-      const Spots = await Spot.findAll({
+      const allSpots = await Spot.findAll({
         where: {
           ownerId: user.id
         }
       });
+      for (let spot of allSpots) {
+        const starsTotal = await Review.sum('stars', {
+          where: {
+            spotId: spot.id
+          }
+        });
+        const starsCount = await Review.count({
+          where: {
+            spotId: spot.id
+          }
+        });
+        let avgRating = starsTotal / starsCount;
+        let previewImage = await SpotImage.findOne({
+          attributes: ['url'],
+          where: {
+            spotId: spot.id
+          }
+        });
+        let newSpot = spot.toJSON();
+        newSpot.avgRating = avgRating;
+        newSpot.previewImage = previewImage.url;
+        Spots.push(newSpot);
+      }
       return res.json({Spots})
     } else {
       const err = new Error('Authentication required');
@@ -71,22 +95,34 @@ router.get('/', async (req, res) => {
   //     model: Review
   //   }
   // });
-  const Spots = await Spot.findAll();
-
-  // for (let spot of Spots) {
-    // const starsTotal = await Review.sum('stars', {
-    //   where: {
-    //     spotId: spot.id
-    //   }
-    // });
-    // const starsCount = await Review.count({
-    //   where: {
-    //     spotId: spot.id
-    //   }
-    // });
-    // let avgRating = starsTotal / starsCount;
-    // spot.avgRating = avgRating;
-  // }
+  const allSpots = await Spot.findAll();
+  const Spots = [];
+  for (let spot of allSpots) {
+    const starsTotal = await Review.sum('stars', {
+      where: {
+        spotId: spot.id
+      }
+    });
+    const starsCount = await Review.count({
+      where: {
+        spotId: spot.id
+      }
+    });
+    let avgRating = starsTotal / starsCount;
+    let previewImage = await SpotImage.findOne({
+      attributes: ['url'],
+      where: {
+        spotId: spot.id
+      }
+    });
+    let newSpot = spot.toJSON();
+    newSpot.avgRating = avgRating;
+    newSpot.previewImage = previewImage.url;
+    Spots.push(newSpot);
+    // console.log(starsCount)
+    // console.log(starsTotal)
+    // console.log(avgRating)
+  }
 
   return res.json({
     Spots
@@ -100,7 +136,27 @@ router.get(
     const { spotId } = req.params;
     const spot = await Spot.findByPk(spotId);
     if (spot) {
-      return res.json(spot)
+      const starsTotal = await Review.sum('stars', {
+        where: {
+          spotId: spot.id
+        }
+      });
+      const starsCount = await Review.count({
+        where: {
+          spotId: spot.id
+        }
+      });
+      let avgRating = starsTotal / starsCount;
+      const SpotImages = await spot.getSpotImages();
+      const Owner = await User.findByPk(spot.ownerId, {
+        attributes: ['id','firstName', 'lastName']
+      });
+      let newSpot = spot.toJSON();
+      newSpot.avgRating = avgRating;
+      newSpot.SpotImages = SpotImages;
+      newSpot.Owner = Owner;
+
+      return res.json(newSpot)
     } else {
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
