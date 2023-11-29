@@ -4,7 +4,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Spot, User, Review, SpotImage } = require('../../db/models');
-const { nextTick } = require('process');
 
 const router = express.Router();
 
