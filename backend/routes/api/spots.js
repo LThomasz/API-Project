@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const { Spot, User, Review, SpotImage } = require('../../db/models');
+const { Spot, User, Review, SpotImage, ReviewImage } = require('../../db/models');
 
 const router = express.Router();
 
@@ -41,6 +41,16 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required.'),
+  check('stars')
+    .exists({ checkFalsy: true })
+    .isInt({ min: 1}, { max: 5 })
+    .withMessage('Stars must be an integer from 1 to 5.'),
+    handleValidationErrors
+];
 //Get spots of current user
 router.get(
   '/current',
@@ -118,9 +128,6 @@ router.get('/', async (req, res) => {
     newSpot.avgRating = avgRating;
     newSpot.previewImage = previewImage.url;
     Spots.push(newSpot);
-    // console.log(starsCount)
-    // console.log(starsTotal)
-    // console.log(avgRating)
   }
 
   return res.json({
@@ -128,6 +135,52 @@ router.get('/', async (req, res) => {
   });
 });
 
+// Get all Reviews by a Spot's id
+router.get(
+  '/:spotId/reviews',
+  async (req, res, next) => {
+    const { spotId } = req.params;
+    const spot = await Spot.findByPk(spotId);
+
+    if (spot) {
+      const Reviews = [];
+      const allReviews = await Review.findAll({
+        attributes: {
+          include: ['id']
+        },
+        where: {
+          spotId: spot.id
+        }
+      });
+      for (let rev of allReviews) {
+        let grapes = await rev.getUser({
+          attributes: ['id', 'firstName', 'lastName']
+        });
+
+        let ReviewImages = await ReviewImage.findAll({
+          attributes: ['id', 'url'],
+          where: {
+            reviewId: rev.id
+          }
+        });
+
+        let newReview = rev.toJSON();
+        newReview.User = grapes;
+        newReview.ReviewImages = ReviewImages;
+        Reviews.push(newReview)
+
+      }
+      return res.json({
+        Reviews
+      })
+    } else {
+      const err = new Error('Spot couldn\'t be found');
+      err.status = 404;
+      err.title = 'Spot couldn\'t be found'
+      return next(err)
+    }
+  }
+)
 // Get details of Spot from id
 router.get(
   '/:spotId',
@@ -159,7 +212,7 @@ router.get(
     } else {
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
-      err.title = 'Spot coulnd\'t be found'
+      err.title = 'Spot couldn\'t be found'
       return next(err)
     }
 
@@ -185,7 +238,7 @@ router.put(
     } else if (!spot) {
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
-      err.title = 'Spot coulnd\'t be found'
+      err.title = 'Spot couldn\'t be found'
       return next(err)
 
     } else if (user.id !== spot.ownerId) {
@@ -210,6 +263,40 @@ router.put(
   }
 )
 
+//Create a Review for a Spot based on the Spot's id
+router.post(
+  '/:spotId/reviews',
+  validateReview,
+  async (req, res, next) => {
+    const { user } = req;
+    const { spotId } = req.params;
+    const spot = Spot.findByPk(spotId);
+
+    if (!spot) {
+      const err = new Error('Spot couldn\'t be found');
+      err.status = 404;
+      err.title = 'Spot couldn\'t be found'
+      return next(err)
+
+    } else if (!user) {
+      const err = new Error('Authentication required');
+      err.status = 401;
+      err.title = 'Authentication required'
+      return next(err)
+
+    } else {
+      const { review, stars} = req.body;
+
+      const newReview = Review.build({ review, stars});
+      newReview.spotId = JSON.parse(spotId);
+      newReview.userId = user.id;
+      await newReview.save();
+      return res.status(201).json(newReview);
+    }
+
+  }
+)
+
 //Add SpotImage
 router.post(
   '/:spotId/images',
@@ -222,7 +309,7 @@ router.post(
     if (!spot) {
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
-      err.title = 'Spot coulnd\'t be found'
+      err.title = 'Spot couldn\'t be found'
       return next(err)
     }
 

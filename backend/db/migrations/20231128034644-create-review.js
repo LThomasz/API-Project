@@ -8,10 +8,10 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Reviews', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        allowNull: false,
+        autoIncrement: true
       },
       spotId: {
         type: Sequelize.INTEGER,

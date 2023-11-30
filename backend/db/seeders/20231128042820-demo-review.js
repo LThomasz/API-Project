@@ -43,6 +43,12 @@ module.exports = {
       userId: 2,
       review: 'Very clean, almost scarily clean, and it was uncomfortably quiet the whole night. Couldn\'t get an ounce of sleep.',
       stars: 2
+    },
+    {
+      spotId: 1,
+      userId: 2,
+      review: 'I like the way it smells and it is very goth looking and melacholy kinda.',
+      stars: 3
     }
    ], {validate: true})
   },
