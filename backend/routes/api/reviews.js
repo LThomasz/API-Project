@@ -19,16 +19,17 @@ const validateReview = [
 ];
 
 // Add an Image to a Review based on the Review's id
-router.post(
-  '/:reviewId/images',    // A human said requireAuth already exists
+router.post( '/:reviewId/images',    // A human said requireAuth already exists
   async (req, res, next) => {
     const { user } = req;
     const { reviewId } = req.params;
-    const review = await Review.findByPk(reviewId, {
-      attributes: {
-        include: ['id']
+    const { url } = req.body;
+    const review = await Review.findByPk(reviewId);
+    const number = await ReviewImage.count({
+      where: {
+        reviewId: review.id
       }
-    });
+    })
     if (!user) {
       const err = new Error('Authentication required');
       err.status = 401;
@@ -42,23 +43,61 @@ router.post(
       return next(err)
 
     } else if (review.userId !== user.id) {
-      // const allReviews = await Review.findAll(
-        // attributes: {
-        //   include: ['id']
-        // }
-      // );
-      res.json(review);
-      // const err = new Error('Forbidden');
-      // err.status = 403;
-      // err.title = 'Forbidden'
-      // console.log(user.id)
-      // res.json(review)
-      // return next(err)
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.title = 'Forbidden'
+      return next(err)
+
+    } else if (number === 10) {
+      const err = new Error('Maximum number of images for this resource was reached');
+      err.status = 403;
+      err.title = 'Maximum number of images for this resource was reached'
+      return next(err)
+
     } else {
+      const newReviewImage = ReviewImage.build({ url });
+      newReviewImage.reviewId = review.id;
+      await newReviewImage.save();
+      console.log(number)
+      return res.json(newReviewImage)
     }
   }
 )
 
+// Edit a Review
+router.put( '/:reviewId',
+  validateReview,
+  async (req, res, next) => {
+    const { user } = req;
+    const { reviewId } = req.params;
+    const { review, stars } = req.body;
+    const existingReview = await Review.findByPk(reviewId);
+    if (!user) {
+      const err = new Error('Authentication required');
+      err.status = 401;
+      err.title = 'Authentication required'
+      return next(err)
+
+    } else if (!existingReview) {
+      const err = new Error('Review couldn\'t be found');
+      err.status = 404;
+      err.title = 'Review couldn\'t be found'
+      return next(err)
+
+    } else if (existingReview.userId !== user.id) {
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.title = 'Forbidden'
+      return next(err)
+
+    } else {
+      existingReview.review = review || existingReview;
+      existingReview.stars = stars || existingReview;
+      await existingReview.save();
+      return res.json(existingReview)
+    }
+  }
+)
 /*
 .custom((endDate, { req }) => {
 
@@ -73,8 +112,7 @@ router.post(
 */
 
 // Get all Reviews of the Current User
-router.get(
-  '/current',                     // A human says to do requireAuth
+router.get( '/current',                     // A human says to do requireAuth
   async (req, res, next) => {
     const { user } = req;
     const Reviews = [];
