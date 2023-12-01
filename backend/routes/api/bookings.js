@@ -4,6 +4,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Booking, Spot, SpotImage } = require('../../db/models');
+const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 
 const validateBooking = [
@@ -23,6 +24,7 @@ const validateBooking = [
 
 // Edit a Booking
 router.put( '/:bookingId',
+  requireAuth,
   validateBooking,
   async (req, res, next) => {
     const { user } = req;
@@ -32,13 +34,7 @@ router.put( '/:bookingId',
     const firstDate = req.body.startDate;
     const secondDate = req.body.endDate;
     const spotId = theBooking.spotId;
-    if (!user) {
-      const err = new Error('Authentication required');
-      err.status = 401;
-      err.title = 'Authentication required'
-      return next(err)
-
-    } else if (!theBooking) {
+    if (!theBooking) {
       const err = new Error('Booking couldn\'t be found');
       err.status = 404;
       err.title = 'Booking couldn\'t be found'
@@ -120,54 +116,49 @@ router.put( '/:bookingId',
 
 // Get all of the Current User's Bookings
 router.get( '/current',
+  requireAuth,
   async (req, res, next) => {
     const { user } = req;
-    if (!user) {
-      const err = new Error('Authentication required');
-      err.status = 401;
-      err.title = 'Authentication required'
-      return next(err)
 
-    } else {
-      const Bookings = [];
-      const foundBookings = await Booking.findAll({
-        include: [
-          {
-            model: Spot,
-            attributes: {
-              exclude: ['description', 'createdAt', 'updatedAt']
-            },
-            // include: [
-            //   {
-            //     model: SpotImage,
-            //     attributes: ['url']
-            //   }
-            // ]
+    const Bookings = [];
+    const foundBookings = await Booking.findAll({
+      include: [
+        {
+          model: Spot,
+          attributes: {
+            exclude: ['description', 'createdAt', 'updatedAt']
           },
-        ],
-        where: {
-        userId: user.id
-        }
-      });
-
-      for (let book of foundBookings) {
-        book = book.toJSON();
-        let previewImage = await SpotImage.findOne({
-          attributes: ['url'],
-          where: {
-            spotId: book.Spot.id
-          }
-        })
-        previewImage = previewImage.toJSON();
-        book.Spot.previewImage = previewImage.url;
-        console.log(book)
-        Bookings.push(book)
+          // include: [
+          //   {
+          //     model: SpotImage,
+          //     attributes: ['url']
+          //   }
+          // ]
+        },
+      ],
+      where: {
+      userId: user.id
       }
+    });
 
-      return res.json({
-        Bookings
-      });
+    for (let book of foundBookings) {
+      book = book.toJSON();
+      let previewImage = await SpotImage.findOne({
+        attributes: ['url'],
+        where: {
+          spotId: book.Spot.id
+        }
+      })
+      previewImage = previewImage.toJSON();
+      book.Spot.previewImage = previewImage.url;
+      console.log(book)
+      Bookings.push(book)
     }
+
+    return res.json({
+      Bookings
+    });
   }
+
 )
 module.exports = router;
