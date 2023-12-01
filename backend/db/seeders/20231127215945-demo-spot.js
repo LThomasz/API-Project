@@ -67,6 +67,18 @@ module.exports = {
       name: 'Tom Cruise\'s Childhood Home',
       description: 'Scientology and other stuff.',
       price: 66
+    },
+    {
+      ownerId: 3,
+      address: '40404 Ocean Boulevard',
+      city: 'Atlantis',
+      state: 'Florida',
+      country: 'United States of America',
+      lat: 34.1523966,
+      lng: 34.5832718,
+      name: 'Literally The Ocean',
+      description: 'The hurricanes pass right over you.',
+      price: 77
     }
    ], { validate: true});
   },

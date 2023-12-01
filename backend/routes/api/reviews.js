@@ -55,8 +55,13 @@ router.post( '/:reviewId/images',
       const newReviewImage = ReviewImage.build({ url });
       newReviewImage.reviewId = review.id;
       await newReviewImage.save();
-      console.log(number)
-      return res.json(newReviewImage)
+
+      const madeReviewImage = await ReviewImage.findByPk(newReviewImage.id, {
+        attributes: {
+          exclude: ['reviewId', 'updatedAt', 'createdAt']
+        }
+      })
+      return res.json(madeReviewImage)
     }
   }
 )
@@ -126,10 +131,15 @@ router.get( '/current',
       let previewImage = await SpotImage.findOne({
         attributes: ['url'],
         where: {
-          spotId: strawSpot.id
+          spotId: strawSpot.id,
+          preview: true
         }
       });
-      foundSpot.previewImage = previewImage.url;
+      if (previewImage) {
+        foundSpot.previewImage = previewImage.url;
+      } else {
+        foundSpot.previewImage = "No preview image available."
+      }
 
       let ReviewImages = await ReviewImage.findAll({
         attributes: ['id', 'url'],
@@ -140,7 +150,12 @@ router.get( '/current',
       let newReview = rev.toJSON();
       newReview.User = grapes;
       newReview.Spot = foundSpot;
-      newReview.ReviewImages = ReviewImages;
+
+      if (!ReviewImages.length) {
+        newReview.ReviewImages = "No images available."
+      } else {
+        newReview.ReviewImages = ReviewImages;
+      }
       Reviews.push(newReview);
     }
     return res.json({
@@ -150,4 +165,32 @@ router.get( '/current',
   }
 )
 
+router.delete( '/:reviewId',
+  requireAuth,
+  async (req, res, next) => {
+    const { user } = req;
+    const { reviewId } = req.params;
+    const theReview = Review.findByPk(reviewId);
+
+    if (!theReview) {
+      const err = new Error('Review couldn\'t be found');
+      err.status = 404;
+      err.title = 'Review couldn\'t be found'
+      return next(err)
+
+    } else if (user.id !== theReview.userId) {
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.title = 'Forbidden'
+      return next(err);
+
+    } else {
+      await theReview.destroy();
+      return res.json({
+        "message": "Successfully deleted"
+      });
+    }
+
+  }
+)
 module.exports = router;

@@ -146,12 +146,17 @@ router.get( '/current',
       let previewImage = await SpotImage.findOne({
         attributes: ['url'],
         where: {
-          spotId: book.Spot.id
+          spotId: book.Spot.id,
+          preview: true
         }
       })
       previewImage = previewImage.toJSON();
-      book.Spot.previewImage = previewImage.url;
-      console.log(book)
+      if (!previewImage) {
+        book.Spot.previewImage = "No available preview image."
+      } else {
+        book.Spot.previewImage = previewImage.url;
+      }
+
       Bookings.push(book)
     }
 
@@ -160,5 +165,41 @@ router.get( '/current',
     });
   }
 
+)
+
+// Delete a booking
+router.delete( '/:bookingId',
+  requireAuth,
+  async (req, res, next) => {
+    const { user } = req;
+    const { bookingId } = req.params;
+    const theBooking = await Booking.findByPk(bookingId);
+    const theSpot = await Spot.findByPk(theBooking.spotId);
+    const today = new Date();
+    if (!theBooking) {
+      const err = new Error('Booking couldn\'t be found');
+      err.status = 404;
+      err.title = 'Booking couldn\'t be found'
+      return next(err);
+
+    } else if (user.id !== theBooking.userId && user.id !== theSpot.ownerId) {
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.title = 'Forbidden'
+      return next(err);
+
+    } else if (Date.parse(theBooking.startDate) <= Date.parse(today) && Date.parse(today) <= Date.parse(theBooking.endDate)) {
+      const err = new Error('Bookings that have been started can\'t be deleted');
+      err.status = 403;
+      err.title = 'Bookings that have been started can\'t be deleted'
+      return next(err);
+
+    } else {
+      await theBooking.destroy();
+      return res.json({
+        "message": "Successfully deleted"
+      })
+    }
+  }
 )
 module.exports = router;
