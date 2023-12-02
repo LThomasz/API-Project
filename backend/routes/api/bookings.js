@@ -29,7 +29,12 @@ router.put( '/:bookingId',
   async (req, res, next) => {
     const { user } = req;
     const { bookingId } = req.params;
-    const theBooking = await Booking.findByPk(bookingId);
+    const theBooking = await Booking.findByPk(bookingId, {
+      attributes: {
+        include: ['spotId']
+      }
+    });
+    console.log(theBooking)
     const today = new Date();
     const firstDate = req.body.startDate;
     const secondDate = req.body.endDate;
@@ -60,7 +65,9 @@ router.put( '/:bookingId',
       });
 
       for (let book of bookCheck) {
-
+        if (book.id === theBooking.id) {
+          continue;
+        }
         let inputBefore = Date.parse(firstDate);
         let inputAfter = Date.parse(secondDate);
         let before = Date.parse(book.startDate);

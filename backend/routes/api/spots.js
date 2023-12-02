@@ -380,11 +380,18 @@ router.get( '/:spotId',
         attributes: ['id','firstName', 'lastName']
       });
       let newSpot = spot.toJSON();
+      if (starsCount) {
+        newSpot.numReviews = starsCount;
+      } else {
+        newSpot.numReviews = "No reviews available."
+      }
+
       if (avgRating) {
         newSpot.avgRating = avgRating;
       } else {
         newSpot.avgRating = "No ratings available for the spot."
       }
+
       if (SpotImages.length) {
         newSpot.SpotImages = SpotImages;
       } else {
@@ -448,7 +455,7 @@ router.post( '/:spotId/bookings',
   async (req, res, next) => {
     const { user } = req;
     const { spotId } = req.params;
-    const spot = Spot.findByPk(spotId);
+    const spot = await Spot.findByPk(spotId);
     const firstDate = req.body.startDate;
     const secondDate = req.body.endDate;
 
@@ -521,6 +528,7 @@ router.post( '/:spotId/bookings',
       const newBooking = Booking.build({ startDate: firstDate, endDate: secondDate });
       newBooking.spotId = JSON.parse(spotId);
       newBooking.userId = user.id;
+      console.log(spot)
       await newBooking.save();
 
       return res.json(newBooking);
