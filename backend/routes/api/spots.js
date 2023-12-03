@@ -76,8 +76,16 @@ const validateQuery = (query) => {
     err.errors.page = "Page must be greater than or equal to 1"
   }
 
+  if (query.page > 10) {
+    err.errors.page = "Page must be less than or equal to 10"
+  }
+
   if (query.size < 1) {
     err.errors.size = "Size must be greater than or equal to 1"
+  }
+
+  if (query.size > 20) {
+    err.errors.size = "Size must be less than or equal to 20"
   }
 
   if (query.maxLat < -90 || query.maxLat > 90) {
