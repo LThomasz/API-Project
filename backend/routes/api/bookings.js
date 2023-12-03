@@ -34,18 +34,17 @@ router.put( '/:bookingId',
         include: ['spotId']
       }
     });
-    console.log(theBooking)
     const today = new Date();
     const firstDate = req.body.startDate;
     const secondDate = req.body.endDate;
-    const spotId = theBooking.spotId;
     if (!theBooking) {
       const err = new Error('Booking couldn\'t be found');
       err.status = 404;
       err.title = 'Booking couldn\'t be found'
       return next(err)
-
-    } else if (theBooking.userId !== user.id) {
+    }
+    const spotId = theBooking.spotId;
+    if (theBooking.userId !== user.id) {
       const err = new Error('Forbidden');
       err.status = 403;
       err.title = 'Forbidden'
@@ -181,15 +180,15 @@ router.delete( '/:bookingId',
     const { user } = req;
     const { bookingId } = req.params;
     const theBooking = await Booking.findByPk(bookingId);
-    const theSpot = await Spot.findByPk(theBooking.spotId);
     const today = new Date();
     if (!theBooking) {
       const err = new Error('Booking couldn\'t be found');
       err.status = 404;
       err.title = 'Booking couldn\'t be found'
       return next(err);
-
-    } else if (user.id !== theBooking.userId && user.id !== theSpot.ownerId) {
+    }
+    const theSpot = await Spot.findByPk(theBooking.spotId);
+    if (user.id !== theBooking.userId && user.id !== theSpot.ownerId) {
       const err = new Error('Forbidden');
       err.status = 403;
       err.title = 'Forbidden'

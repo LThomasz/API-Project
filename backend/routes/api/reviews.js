@@ -116,47 +116,54 @@ router.get( '/current',
       }
     });
     // const currentUser = await User.findByPk(user.id)
-    for (let rev of allReviews) {
-      let grapes = await rev.getUser({
-        attributes: ['id', 'firstName', 'lastName']
-      });
+    if (allReviews.length) {
 
-      let strawSpot = await rev.getSpot({
-        attributes: {
-          exclude: ['description', 'createdAt', 'updatedAt']
-        }
-      });
-      let foundSpot = strawSpot.toJSON();
+      for (let rev of allReviews) {
+        let grapes = await rev.getUser({
+          attributes: ['id', 'firstName', 'lastName']
+        });
 
-      let previewImage = await SpotImage.findOne({
-        attributes: ['url'],
-        where: {
-          spotId: strawSpot.id,
-          preview: true
+        let strawSpot = await rev.getSpot({
+          attributes: {
+            exclude: ['description', 'createdAt', 'updatedAt']
+          }
+        });
+        let foundSpot = strawSpot.toJSON();
+
+        let previewImage = await SpotImage.findOne({
+          attributes: ['url'],
+          where: {
+            spotId: strawSpot.id,
+            preview: true
+          }
+        });
+        if (previewImage) {
+          foundSpot.previewImage = previewImage.url;
+        } else {
+          foundSpot.previewImage = "No preview image available."
         }
-      });
-      if (previewImage) {
-        foundSpot.previewImage = previewImage.url;
-      } else {
-        foundSpot.previewImage = "No preview image available."
+
+        let ReviewImages = await ReviewImage.findAll({
+          attributes: ['id', 'url'],
+          where: {
+            reviewId: rev.id
+          }
+        })
+        let newReview = rev.toJSON();
+        newReview.User = grapes;
+        newReview.Spot = foundSpot;
+
+        if (!ReviewImages.length) {
+          newReview.ReviewImages = "No images available."
+        } else {
+          newReview.ReviewImages = ReviewImages;
+        }
+        Reviews.push(newReview);
       }
-
-      let ReviewImages = await ReviewImage.findAll({
-        attributes: ['id', 'url'],
-        where: {
-          reviewId: rev.id
-        }
+    } else {
+      return res.json({
+        Reviews: "No reviews available."
       })
-      let newReview = rev.toJSON();
-      newReview.User = grapes;
-      newReview.Spot = foundSpot;
-
-      if (!ReviewImages.length) {
-        newReview.ReviewImages = "No images available."
-      } else {
-        newReview.ReviewImages = ReviewImages;
-      }
-      Reviews.push(newReview);
     }
     return res.json({
       Reviews
@@ -165,13 +172,13 @@ router.get( '/current',
   }
 )
 
+// Delete a Review
 router.delete( '/:reviewId',
   requireAuth,
   async (req, res, next) => {
     const { user } = req;
     const { reviewId } = req.params;
-    const theReview = Review.findByPk(reviewId);
-
+    const theReview = await Review.findByPk(reviewId);
     if (!theReview) {
       const err = new Error('Review couldn\'t be found');
       err.status = 404;

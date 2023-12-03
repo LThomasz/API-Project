@@ -8,15 +8,21 @@ router.delete( '/:imageId',
   async (req, res, next) => {
     const { user } = req;
     const { imageId } = req.params;
-    const reviewImg = ReviewImage.findByPk(imageId);
-    const review = Review.findByPk(reviewImg.reviewId);
+    const reviewImg = await ReviewImage.findByPk(imageId, {
+      attributes: {
+        include: ['reviewId']
+      }
+    });
+
     if (!reviewImg) {
       const err = new Error('Review Image couldn\'t be found');
       err.status = 404;
       err.title = 'Review Image couldn\'t be found'
       return next(err);
+    }
+    const review = await Review.findByPk(reviewImg.reviewId);
 
-    } else if (user.id !== review.userId ) {
+    if (user.id !== review.userId ) {
       const err = new Error('Forbidden');
       err.status = 403;
       err.title = 'Forbidden'

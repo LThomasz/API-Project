@@ -228,39 +228,38 @@ router.get( '/',
 
   for (let spot of allSpots) {
 
-    const starsTotal = await Review.sum('stars', {
-      where: {
-        spotId: spot.id
-      }
-    });
-    const starsCount = await Review.count({
-      where: {
-        spotId: spot.id
-      }
-    });
-    let avgRating = starsTotal / starsCount;
-    let previewImage = await SpotImage.findOne({
-      attributes: ['url'],
-      where: {
-        spotId: spot.id,
-        preview: true
-      }
-    });
-      let newSpot = spot.toJSON();
-      if (avgRating) {
-        newSpot.avgRating = avgRating;
-      } else {
-        newSpot.avgRating = "No ratings available for the spot."
-      }
+  const starsTotal = await Review.sum('stars', {
+    where: {
+      spotId: spot.id
+    }
+  });
+  const starsCount = await Review.count({
+    where: {
+      spotId: spot.id
+    }
+  });
+  let avgRating = starsTotal / starsCount;
+  let previewImage = await SpotImage.findOne({
+    attributes: ['url'],
+    where: {
+      spotId: spot.id,
+      preview: true
+    }
+  });
+    let newSpot = spot.toJSON();
+    if (avgRating) {
+      newSpot.avgRating = avgRating;
+    } else {
+      newSpot.avgRating = "No ratings available for the spot."
+    }
 
-      if (previewImage) {
-        newSpot.previewImage = previewImage.url;
-      } else {
-        newSpot.previewImage = "No preview image available."
-      }
+    if (previewImage) {
+      newSpot.previewImage = previewImage.url;
+    } else {
+      newSpot.previewImage = "No preview image available."
+    }
 
-      Spots.push(newSpot);
-
+    Spots.push(newSpot);
   }
 
   return res.json({
@@ -324,7 +323,8 @@ router.get( '/:spotId/reviews',
           spotId: spot.id
         }
       });
-      for (let rev of allReviews) {
+      if (allReviews.length) {
+        for (let rev of allReviews) {
         let grapes = await rev.getUser({
           attributes: ['id', 'firstName', 'lastName']
         });
@@ -344,7 +344,11 @@ router.get( '/:spotId/reviews',
           newReview.ReviewImages = ReviewImages;
         }
         Reviews.push(newReview)
-
+        }
+      } else {
+        return res.json({
+          Reviews: "No Reviews available."
+        })
       }
       return res.json({
         Reviews
@@ -479,7 +483,6 @@ router.post( '/:spotId/bookings',
       });
 
       for (let book of bookCheck) {
-        // console.log(book.toJSON())
         let inputBefore = Date.parse(firstDate);
         let inputAfter = Date.parse(secondDate);
         let before = Date.parse(book.startDate);
@@ -528,7 +531,6 @@ router.post( '/:spotId/bookings',
       const newBooking = Booking.build({ startDate: firstDate, endDate: secondDate });
       newBooking.spotId = JSON.parse(spotId);
       newBooking.userId = user.id;
-      console.log(spot)
       await newBooking.save();
 
       return res.json(newBooking);
