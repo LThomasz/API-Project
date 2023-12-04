@@ -40,11 +40,11 @@ module.exports = {
         allowNull: false,
       },
       lat: {
-        type: Sequelize.DECIMAL(9,7),
+        type: Sequelize.FLOAT(9,7),
         allowNull: false,
       },
       lng: {
-        type: Sequelize.DECIMAL(10,7),
+        type: Sequelize.FLOAT(10,7),
         allowNull: false,
       },
       name: {
@@ -56,7 +56,7 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       createdAt: {

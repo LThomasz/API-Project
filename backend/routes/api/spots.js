@@ -17,7 +17,7 @@ const validateSpot = [
   check('state')
     .exists({checkFalsy: true})
     .withMessage('State is required.'),
-    check('country')
+  check('country')
     .exists({checkFalsy: true})
     .withMessage('Country is required.'),
   check('lat')
@@ -37,6 +37,7 @@ const validateSpot = [
     .withMessage('Description is required.'),
   check('price')
     .exists({checkFalsy: true})
+    .isFloat({min: 0})
     .withMessage('Price per day is required.'),
   handleValidationErrors
 ];
@@ -558,8 +559,6 @@ router.post( '/:spotId/reviews',
     const seekReview = await Review.findOne({
       where: {
         spotId: spotId,
-        review: review,
-        stars: stars,
         userId: user.id
       }
     })
