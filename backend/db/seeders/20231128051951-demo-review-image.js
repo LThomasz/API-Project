@@ -21,19 +21,19 @@ module.exports = {
    await ReviewImage.bulkCreate([
     {
       reviewId: 1,
-      url: 'https://img.freepik.com/premium-photo/dusty-room-with-old-distressed-windows-sun-rays-abandoned-grungy-interior-with-lights-dust-generated-ai_116953-4998.jpg'
+      url: 'image1.url'
     },
     {
       reviewId: 2,
-      url: 'https://photos.lensculture.com/large/9352e02f-02ff-4f0b-b373-cb2adf2bd9d1.jpg'
+      url: 'image2.url'
     },
     {
       reviewId: 3,
-      url: 'https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/DWAFRTAXUII6XC62QFGKK3QTRM.jpg'
+      url: 'image3.url'
     },
     {
       reviewId: 4,
-      url: 'https://i.dailymail.co.uk/i/newpix/2018/03/05/17/49B322EE00000578-0-image-a-37_1520272379176.jpg'
+      url: 'image4.url'
     }
    ], {validate: true});
   },

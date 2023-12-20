@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Navigation from './components/Navigation/Navigation';
+import Navigation from './components/Navigation/Navigation.jsx';
 import * as sessionActions from './store/session';
-import ListOfSpots from './components/ListOfSpots/ListOfSpots';
-
+import ListOfSpots from './components/ListOfSpots/ListOfSpots.jsx';
+import SpotPage from './components/SpotPage/SpotPage.jsx';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +30,11 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <ListOfSpots />
+
+      },
+      {
+        path: '/spots/:spotId',
+        element: <SpotPage />
       }
     ]
   }

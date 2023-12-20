@@ -6,8 +6,6 @@ function ListOfSpots() {
   const dispatch = useDispatch();
   const spotsObj = useSelector((store) => store.spots);
   const spots = Object.values(spotsObj);
-  console.log("This is the spots", spots)
-
   useEffect(() => {
     dispatch(thunkGetAllSpots())
   }, [dispatch])

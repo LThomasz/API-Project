@@ -4,6 +4,7 @@ import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
+import logo from "../../../dist/favicon.ico"
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -12,20 +13,20 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <li>
+      <li className="profile-button">
         <ProfileButton user={sessionUser} />
       </li>
     );
   } else {
     sessionLinks = (
       <>
-      <li>
+      <li className='log-in-button'>
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
         />
       </li>
-      <li>
+      <li className='sign-up-button'>
         <OpenModalButton
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
@@ -36,9 +37,11 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
+    <ul className='navigation-bar'>
+      <li className='profile-logo'>
+        <NavLink to="/">
+          <img src={logo} alt="" />
+        </NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>
