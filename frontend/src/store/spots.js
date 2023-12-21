@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf"
 const GET_ALL_SPOTS = "spots/GET_ALL_SPOTS"
 const GET_ONE_SPOT = "spots/GET_ONE_SPOT"
 const CREATE_SPOT = "spots/CREATE_SPOT"
+const ADD_SPOT_IMAGE = "spots/ADD_SPOT_IMAGE"
 const UPDATE_SPOT = "spots/UPDATE_SPOT"
 const DELETE_SPOT = "spots/DELETE_SPOT"
 
@@ -23,6 +24,10 @@ const createSpot = (spot) => ({
   spot
 });
 
+const addSpotImage = (spot) => ({
+  type: ADD_SPOT_IMAGE,
+  spotImage
+})
 // const updateSpot = (spot) => ({
 //   type: UPDATE_SPOT,
 //   spot
@@ -57,7 +62,7 @@ export const thunkGetOneSpot = (spotId) => async (dispatch) => {
   }
 }
 
-export const thunkCreateSpot = (spotData) => async (dispatch) => {
+export const thunkCreateSpot = (spotData, spotImageData) => async (dispatch) => {
   try {
     const res = await csrfFetch("/api/spots", {
       method: 'POST',
@@ -66,11 +71,22 @@ export const thunkCreateSpot = (spotData) => async (dispatch) => {
       },
       body: JSON.stringify(spotData)
     })
-    if (res.ok) {
+    console.log("create spot res", res);
+    // if (res.ok) {
       const data = await res.json();
+      console.log("create spot data", data)
+
+      const imageRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(spotImageData)
+      });
+      console.log("adding images i think", imageRes)
       dispatch(createSpot(data))
-    }
+
+    // }
   } catch (error) {
+    console.log(error)
     const data = await error.json();
     return data
   }
@@ -92,7 +108,8 @@ const spotReducer = (state = {}, action) => {
       return spotState;
     }
     case CREATE_SPOT: {
-      const newState = {...state, [action.newSpot.id]: action.newSpot}
+      const newState = {...state, [action.spot.id]: action.spot}
+      console.log(newState)
       return newState
     }
     case UPDATE_SPOT: {

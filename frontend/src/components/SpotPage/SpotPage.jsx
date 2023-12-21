@@ -21,16 +21,22 @@ function SpotPage() {
     <div className="spot-info-container">
       <h1>{spot.name}</h1>
       <div className="spot-images-container">
-        <div className="main-spot-images">
-          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+        <div className="main-spot-image">
+          <img className="spot-preview-image" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
         </div>
-        <div className="sec-spot-images">
-          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
-          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
-        </div>
-        <div className="third-spot-images">
-          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
-          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+        <div className="secondary-image-container">
+          <div className="secondary-images">
+            <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+          </div>
+          <div className="secondary-images">
+            <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+          </div>
+          <div className="secondary-images">
+            <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+          </div>
+          <div className="secondary-images">
+            <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+          </div>
         </div>
       </div>
       <div>

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateSpot } from "../../store/spots";
 import './SpotForm.css'
 function SpotForm() {
@@ -34,16 +34,25 @@ function SpotForm() {
       description,
       price
     }
-      const data = await dispatch(thunkCreateSpot(spotData))
-      setErrors(data.errors)
 
-    // const spotImageData = {
-    //   url: previewImage,
-    //   preview: true
-    // }
+    const spotImageData = {
+      url: previewImage,
+      preview: true
+    }
+
+
+    const data = await dispatch(thunkCreateSpot(spotData, spotImageData))
+    if (data) {
+      const errorMessages = {...data.errors}
+      if (!previewImage) {
+        errorMessages.previewImage = "Preview image is required"
+      }
+      setErrors(errorMessages)
+    }
   }
   return (
     <div className="create-spot-form-container">
+      <img src="https://i.redd.it/8kw9ow3n0lt61.jpg" alt="" />
       <h1>Create a new Spot</h1>
       <form onSubmit={handleSubmit} className="new-spot-form">
         <div className="section-one">
@@ -100,7 +109,7 @@ function SpotForm() {
           ></textarea>
           {'description' in errors && <p style={{color: 'red'}}>{errors.description}</p>}
         </div>
-        <div>
+        <div className="section-four">
           <h2>Create a title for your spot</h2>
           <label htmlFor="name">Catch guests&apos; attention with a spot title that highlights what makes your place special.</label>
           <input
@@ -112,7 +121,7 @@ function SpotForm() {
           />
           {'name' in errors && <p style={{color: 'red'}}>{errors.name}</p>}
         </div>
-        <div>
+        <div className="section-five">
           <h2>Set a base price for your spot</h2>
           <label htmlFor="price">Competitive pricing can help your listing stand out and rank higher in search results.</label>
 
@@ -126,7 +135,7 @@ function SpotForm() {
           />
           {'price' in errors && <p style={{color: 'red'}}>{errors.price}</p>}
         </div>
-        <div>
+        <div className="section-six">
           <h2>Liven up your spot with photos</h2>
           <label htmlFor="previewImage">Submit a link to at least one photo to publish your spot.</label>
           <input
@@ -136,7 +145,7 @@ function SpotForm() {
             placeholder="Preview Image URL"
             onChange={(e) => setPreviewImage(e.target.value)}
           />
-
+          {'previewImage' in errors && <p style={{color: 'red'}}>{errors.previewImage}</p>}
           <input
             type="url"
             id="image1"
