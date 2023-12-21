@@ -1,0 +1,35 @@
+.create-spot-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-spot-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-one {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.section-two {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.section-three {
+  display: flex;
+  flex-direction: column;
+
+}
+
+label {
+  display: flex;
+  align-items: center;
+}

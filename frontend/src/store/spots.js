@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf"
 
 // Action Constants
 const GET_ALL_SPOTS = "spots/GET_ALL_SPOTS"
@@ -15,11 +16,12 @@ const getAllSpots = (spots) => ({
 const getOneSpot = (spot) => ({
   type: GET_ONE_SPOT,
   spot
-})
-// const createSpot = (spot) => ({
-//   type: CREATE_SPOT,
-//   spot
-// });
+});
+
+const createSpot = (spot) => ({
+  type: CREATE_SPOT,
+  spot
+});
 
 // const updateSpot = (spot) => ({
 //   type: UPDATE_SPOT,
@@ -33,7 +35,7 @@ const getOneSpot = (spot) => ({
 
 // Thunks
 export const thunkGetAllSpots = (props) => async (dispatch) => {
-  const res = await fetch('/api/spots', {
+  const res = await csrfFetch('/api/spots', {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   });
@@ -45,7 +47,7 @@ export const thunkGetAllSpots = (props) => async (dispatch) => {
 }
 
 export const thunkGetOneSpot = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/spots/${spotId}`, {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   });
@@ -54,6 +56,26 @@ export const thunkGetOneSpot = (spotId) => async (dispatch) => {
     dispatch(getOneSpot(data))
   }
 }
+
+export const thunkCreateSpot = (spotData) => async (dispatch) => {
+  try {
+    const res = await csrfFetch("/api/spots", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(spotData)
+    })
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(createSpot(data))
+    }
+  } catch (error) {
+    const data = await error.json();
+    return data
+  }
+}
+
 // Spot Reducer
 const spotReducer = (state = {}, action) => {
   switch (action.type) {
@@ -70,7 +92,8 @@ const spotReducer = (state = {}, action) => {
       return spotState;
     }
     case CREATE_SPOT: {
-      return state
+      const newState = {...state, [action.newSpot.id]: action.newSpot}
+      return newState
     }
     case UPDATE_SPOT: {
       return state

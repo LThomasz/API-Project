@@ -1,0 +1,26 @@
+.spot-image-tile {
+min-width: none;
+}
+
+.spot-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.spot-images-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.main-spot-images {
+
+}
+
+.sec-spot-images {
+
+}
+
+.third-spot-images {
+
+}

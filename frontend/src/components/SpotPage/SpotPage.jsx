@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunkGetOneSpot } from "../../store/spots";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import './SpotPage.css'
 function SpotPage() {
   const dispatch = useDispatch();
   const spotObj = useSelector((store) => store.spots);
@@ -17,17 +18,19 @@ function SpotPage() {
     return null
   }
   return (
-    <div>
+    <div className="spot-info-container">
       <h1>{spot.name}</h1>
-      <div>
-        <div>
-          <img src="" alt="" />
+      <div className="spot-images-container">
+        <div className="main-spot-images">
+          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
         </div>
-        <div>
-          <img src="" alt="" />
-          <img src="" alt="" />
-          <img src="" alt="" />
-          <img src="" alt="" />
+        <div className="sec-spot-images">
+          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+        </div>
+        <div className="third-spot-images">
+          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
+          <img className="spot-image-tile" src="https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg" alt="" />
         </div>
       </div>
       <div>
