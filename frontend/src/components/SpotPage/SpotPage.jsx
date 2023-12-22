@@ -44,8 +44,12 @@ function SpotPage() {
         {/* Object.values(spot.Owner).slice(1).join(' ') */}
         <p>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</p>
       </div>
-      <div>
+      <div className="reserve-section">
         <p>${spot.price} night</p>
+        <p>
+          <i className="fa-solid fa-star"></i>
+          {typeof spot.avgRating === 'string' ? 'New' : (spot.avgRating % 1 == 0 ? spot.avgRating.toFixed(1) : spot.avgRating)} {typeof spot.numReviews === 'string' ? null : spot.numReviews == 1 ? `· ${spot.numReviews} review` : `· ${spot.numReviews} reviews`}
+        </p>
         <button>Reserve</button>
       </div>
         <p>{spot.description}</p>

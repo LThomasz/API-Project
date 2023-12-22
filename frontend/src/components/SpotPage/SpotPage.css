@@ -43,3 +43,7 @@
   height: 100%;
   width: 100%;
 }
+
+.reserve-section {
+  border: 2px solid black;
+}

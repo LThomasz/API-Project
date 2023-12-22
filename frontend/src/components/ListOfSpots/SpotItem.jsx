@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import './SpotItem.css'
 function SpotItem({spot}) {
+  console.log(spot.avgRating)
   return (
     <Link to={`/spots/${spot.id}`} className="spot-card-item">
     <div>
@@ -9,10 +10,12 @@ function SpotItem({spot}) {
         <p>{spot.city}, {spot.state}</p>
         <p>
         <i className="fa-solid fa-star"></i>
-        {spot.avgRating}
+        {typeof spot.avgRating === 'string' ? 'New' : (spot.avgRating % 1 == 0 ? spot.avgRating.toFixed(1) : spot.avgRating)}
         </p>
       </div>
-      <p>${spot.price} night</p>
+      <div>
+        <p>${spot.price} night</p>
+      </div>
     </div>
     </Link>
   )
