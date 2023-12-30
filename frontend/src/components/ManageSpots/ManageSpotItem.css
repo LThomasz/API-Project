@@ -1,0 +1,10 @@
+.spot-card-item {
+  display: inline-block;
+  width: calc(100% * (1/4) - 11px);
+  padding: 3px;
+  margin: 2px;
+}
+
+.spot-card-image {
+  width: 100%;
+}

@@ -15,6 +15,9 @@ function Navigation({ isLoaded }) {
           <img src={logo} alt="" />
         </NavLink>
       </li>
+      <li>
+        <NavLink to='/spots/new'>Create a Spot</NavLink>
+      </li>
       {isLoaded && (
         <li>
           <ProfileButton user={sessionUser} />

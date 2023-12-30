@@ -6,6 +6,8 @@ import * as sessionActions from './store/session';
 import ListOfSpots from './components/ListOfSpots/ListOfSpots.jsx';
 import SpotPage from './components/SpotPage/SpotPage.jsx';
 import SpotForm from './components/SpotForm/SpotForm.jsx';
+import ManageSpots from './components/ManageSpots/ManageSpots.jsx';
+import UpdateSpotForm from './components/SpotForm/UpdateSpotForm.jsx';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,11 +37,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/spots/:spotId',
-        element: <SpotPage />
+        element: <SpotPage />,
+      },
+      {
+        path: '/spots/:spotId/edit',
+        element: <UpdateSpotForm />
       },
       {
         path: '/spots/new',
         element: <SpotForm />
+      },
+      {
+        path: '/spots/current',
+        element: <ManageSpots />
       }
     ]
   }

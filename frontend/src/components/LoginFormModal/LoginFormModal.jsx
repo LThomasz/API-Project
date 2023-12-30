@@ -10,7 +10,6 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  // const disabled = (document.getElementById('username').length >= 4 && document.getElementById('password').length >= 6)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,9 +48,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
+        {errors.credential && <p style={{color: 'red'}}>{errors.credential}</p>}
         <button
           type="submit"
+          disabled={credential.length < 4 || password.length < 6}
         >Log In</button>
       </form>
     </>
