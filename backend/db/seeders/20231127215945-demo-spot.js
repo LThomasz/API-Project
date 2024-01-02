@@ -29,7 +29,7 @@ module.exports = {
       lat: 34.029802,
       lng: -118.278551,
       name: 'Addam\'s Family Residence',
-      description: 'The house where something was filmed.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       price: 135
     },
     {
@@ -41,7 +41,7 @@ module.exports = {
       lat: 24.5517973,
       lng: -81.8006162,
       name: 'The Hemingway Home and Museum',
-      description: 'Former residence of Ernest Hemingway in the 1930s.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       price: 300
     },
     {
@@ -53,7 +53,7 @@ module.exports = {
       lat: 34.7415037,
       lng: -120.0930663,
       name: 'Neverland Railway Station',
-      description: 'Something something Michael Jackson, Teehee.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       price: 430
     },
     {
@@ -65,7 +65,7 @@ module.exports = {
       lat: 34.1523966,
       lng: -118.4549588,
       name: 'Tom Cruise\'s Childhood Home',
-      description: 'Scientology and other stuff.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       price: 66
     },
     {
@@ -77,8 +77,8 @@ module.exports = {
       lat: 34.1523966,
       lng: 34.5832718,
       name: 'Literally The Ocean',
-      description: 'The hurricanes pass right over you.',
-      price: 77
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      price: 83
     }
    ], { validate: true});
   },

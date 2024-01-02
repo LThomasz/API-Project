@@ -8,3 +8,16 @@
 .spot-card-image {
   width: 100%;
 }
+
+.spot-card-stuff {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spot-card-stuff p {
+  margin: 4px;
+}
+
+.price p {
+  margin: 4px;
+}

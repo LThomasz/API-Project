@@ -1,13 +1,23 @@
+
 .create-spot-form-container {
+
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-sub-container {
+  display: flex;
+  width: 40%;
 }
 
 .new-spot-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.new-spot-form button {
+  padding: 5px;
 }
 
 .section-one {
@@ -26,7 +36,62 @@
 .section-three {
   display: flex;
   flex-direction: column;
+}
 
+.section-three textarea {
+  resize: none;
+  height: 140px;
+}
+
+.section-four {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-five {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.price-container input {
+  width: 100%;
+}
+
+.price-container p {
+  margin-right: 5px;
+}
+
+.section-six {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-six input {
+  margin: 8px 0px;
+}
+
+.city-input-div  {
+  width: 58%;
+}
+
+.state-input-div  {
+  width: 40%;
+}
+
+.state-input-div input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.city-input-div input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 label {

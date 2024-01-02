@@ -14,10 +14,11 @@ function Navigation({ isLoaded }) {
         <NavLink to="/">
           <img src={logo} alt="" />
         </NavLink>
+          <p>Ground Bnb</p>
       </li>
-      <li>
-        <NavLink to='/spots/new'>Create a Spot</NavLink>
-      </li>
+      {sessionUser && <li>
+        <NavLink to='/spots/new'>Create a New Spot</NavLink>
+      </li>}
       {isLoaded && (
         <li>
           <ProfileButton user={sessionUser} />

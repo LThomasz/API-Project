@@ -1,6 +1,6 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { thunkUpdateSpot, thunkGetOneSpot } from "../../store/spots";
 import './UpdateSpotForm.css'
 

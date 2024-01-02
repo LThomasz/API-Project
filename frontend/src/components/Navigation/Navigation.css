@@ -4,3 +4,13 @@
   justify-content: space-between;
   padding: 0px;
 }
+
+.profile-logo {
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-logo p {
+ margin: 5px;
+}

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetUserSpots } from "../../store/spots";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ManageSpotItem from "../ManageSpots/ManageSpotItem";
 import './ManageSpots.css'
 import { NavLink } from "react-router-dom";

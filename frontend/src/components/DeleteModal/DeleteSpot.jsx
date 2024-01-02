@@ -1,4 +1,3 @@
-import { useState } from "react";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteSpotModal from "./DeleteSpotModal";
 
@@ -7,7 +6,6 @@ function DeleteSpot({spotId}) {
     <OpenModalButton
       buttonText="Delete"
       modalComponent={<DeleteSpotModal spotId={spotId} />}
-
     />
   )
 }

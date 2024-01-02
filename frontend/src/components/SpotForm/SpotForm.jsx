@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { thunkCreateSpot } from "../../store/spots";
 import './SpotForm.css'
 function SpotForm() {
@@ -35,11 +35,46 @@ function SpotForm() {
       price
     }
 
-    const spotImageData = {
-      url: previewImage,
-      preview: true
-    }
-
+    const spotImageData = [
+      {
+        url: previewImage,
+        preview: true
+      },
+      {
+        url: image1,
+        preview: true
+      },
+      {
+        url: image2,
+        preview: true
+      },
+      {
+        url: image3,
+        preview: true
+      },
+      {
+        url: image4,
+        preview: true
+      }
+    ]
+    // const extraImageData = [
+    //   {
+    //     url: image1,
+    //     preview: true
+    //   },
+    //   {
+    //     url: image2,
+    //     preview: true
+    //   },
+    //   {
+    //     url: image3,
+    //     preview: true
+    //   },
+    //   {
+    //     url: image4,
+    //     preview: true
+    //   }
+    // ]
 
     const data = await dispatch(thunkCreateSpot(spotData, spotImageData))
     if (typeof data !== "number") {
@@ -55,8 +90,11 @@ function SpotForm() {
   }
   return (
     <div className="create-spot-form-container">
-      <h1>Create a new Spot</h1>
+      <div className="form-sub-container">
       <form onSubmit={handleSubmit} className="new-spot-form">
+        <div>
+          <h1>Create a new Spot</h1>
+        </div>
         <div className="section-one">
           <h2>Where&apos;s your place located?</h2>
           <p>Guests will only get your exact address once they booked a reservation.</p>
@@ -79,7 +117,7 @@ function SpotForm() {
           />
         </div>
         <div className="section-two">
-          <div>
+          <div className="city-input-div">
             <label htmlFor="city">City {'city' in errors && <p style={{color: 'red'}}>{errors.city}</p>}</label>
             <input
               type="text"
@@ -89,7 +127,7 @@ function SpotForm() {
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
-          <div>
+          <div className="state-input-div">
             <label htmlFor="state">State {'state' in errors && <p style={{color: 'red'}}>{errors.state}</p>}</label>
             <input
               type="text"
@@ -126,17 +164,18 @@ function SpotForm() {
         <div className="section-five">
           <h2>Set a base price for your spot</h2>
           <label htmlFor="price">Competitive pricing can help your listing stand out and rank higher in search results.</label>
-
-          <p>$</p>
-          <input
-            id="price"
-            type="text"
-            inputMode="numeric"
-            value={price}
-            placeholder="Price per night (USD)"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          {'price' in errors && <p style={{color: 'red'}}>{errors.price}</p>}
+            <div className="price-container">
+              <p>$</p>
+              <input
+                id="price"
+                type="text"
+                inputMode="numeric"
+                value={price}
+                placeholder="Price per night (USD)"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              {'price' in errors && <p style={{color: 'red'}}>{errors.price}</p>}
+            </div>
         </div>
         <div className="section-six">
           <h2>Liven up your spot with photos</h2>
@@ -180,6 +219,7 @@ function SpotForm() {
         </div>
         <button type="submit">Create Spot</button>
       </form>
+      </div>
     </div>
   )
 }

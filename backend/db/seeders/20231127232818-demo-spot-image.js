@@ -22,83 +22,93 @@ module.exports = {
    await SpotImage.bulkCreate([
     {
       spotId: 1,
-      url: 'image.url',
-      preview: false
+      url: 'https://generatorfun.com/code/uploads/Random-House-image-9.jpg',
+      preview: true
     },
     {
       spotId: 1,
-      url: 'image1.url',
-      preview: false
+      url: 'https://generatorfun.com/code/uploads/Random-House-image-13.jpg',
+      preview: true
     },
     {
       spotId: 1,
-      url: 'image2.url',
-      preview: false
+      url: 'https://generatorfun.com/code/uploads/Random-House-image-4.jpg',
+      preview: true
     },
     {
       spotId: 1,
-      url: 'image3.url',
-      preview: false
+      url: 'https://generatorfun.com/code/uploads/Random-House-image-8.jpg',
+      preview: true
+    },
+    {
+      spotId: 1,
+      url: 'https://generatorfun.com/code/uploads/Random-House-image-17.jpg',
+      preview: true
     },
     {
       spotId: 2,
-      url: 'image4.url',
-      preview: false
+      url: 'https://cdn.houseplansservices.com/content/9ns4vp133de3p7n98dhr862uvd/w991x660.jpg?v=2',
+      preview: true
     },
     {
       spotId: 2,
-      url: 'image5.url',
-      preview: false
+      url: 'https://media.architecturaldigest.com/photos/64f71af50a84399fbdce2f6a/16:9/w_6720,h_3780,c_limit/Living%20with%20Lolo%20Photo%20Credit_%20Life%20Created%204.jpg',
+      preview: true
     },
     {
       spotId: 2,
-      url: 'image6.url',
-      preview: false
+      url: 'https://www.decorilla.com/online-decorating/wp-content/uploads/2023/08/Modern-Mediterranean-interior-design-for-a-living-room.jpg',
+      preview: true
     },
     {
       spotId: 2,
-      url: 'image7.url',
-      preview: false
+      url: 'https://images.unsplash.com/photo-1603283297623-f44d1dde80e5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvdXNlJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
+      preview: true
+    },
+    {
+      spotId: 2,
+      url: 'https://media.designcafe.com/wp-content/uploads/2021/08/07190905/10-low-budget-house-design.jpg',
+      preview: true
     },
     {
       spotId: 3,
       url: 'image8.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 3,
       url: 'image9.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 3,
       url: 'image10.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 3,
       url: 'image11.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 4,
       url: 'image12.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 4,
       url: 'image13.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 4,
       url: 'image14.url',
-      preview: false
+      preview: true
     },
     {
       spotId: 4,
       url: 'image15.url',
-      preview: false
+      preview: true
     },
    ], { validate: true});
   },

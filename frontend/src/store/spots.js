@@ -73,17 +73,22 @@ export const thunkCreateSpot = (spotData, spotImageData) => async (dispatch) => 
       body: JSON.stringify(spotData)
     })
     console.log("create spot res", res);
-    // if (res.ok) {
       const data = await res.json();
       console.log("create spot data", data)
 
-      const imageRes = await csrfFetch(`/api/spots/${data.id}/images`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(spotImageData)
-      });
-      console.log("adding images i think", imageRes)
-      dispatch(createSpot(data))
+      console.log("This is the spotImageData", spotImageData)
+      for (let obj of spotImageData) {
+        if (obj.url) {
+          console.log("image data", obj)
+          const imageRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(obj)
+          });
+          console.log("adding images i think", imageRes)
+          await dispatch(createSpot(data))
+        }
+      }
       return data.id;
   } catch (error) {
     console.log(error)
@@ -104,11 +109,9 @@ export const thunkUpdateSpot = (spotData, spotId) => async (dispatch) => {
     console.log("update spot res", res);
     // if (res.ok) {
       const data = await res.json();
-      console.log("update spot data", data)
       dispatch(updateSpot(data))
       return data.id;
   } catch (error) {
-    console.log(error)
     const data = await error.json();
     return data
   }
@@ -123,7 +126,6 @@ export const thunkGetUserSpots = () => async (dispatch) => {
   })
   if (res.ok) {
     const data = await res.json();
-    console.log("Get user spots data",data)
     dispatch(getUserSpots(data))
   }
 }
@@ -138,7 +140,7 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     console.log("Delete spot data", data)
-    dispatch(deleteSpot(data))
+    dispatch(deleteSpot(spotId))
   }
 }
 // Spot Reducer
@@ -162,7 +164,6 @@ const spotReducer = (state = {}, action) => {
     }
     case GET_USER_SPOTS: {
       const newState = {};
-      console.log(action)
       if (action.spot.message) {
         return {}
       } else {
@@ -178,11 +179,8 @@ const spotReducer = (state = {}, action) => {
     }
     case DELETE_SPOT: {
       const newState = {...state};
-
-      console.log(action)
-      console.log(newState)
-        // delete newState[]
-      return state
+      delete newState[action.spotId]
+      return newState
     }
     default:
       return state
