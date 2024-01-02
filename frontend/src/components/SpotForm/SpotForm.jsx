@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { thunkCreateSpot } from "../../store/spots";
 import './SpotForm.css'
@@ -20,54 +20,56 @@ function SpotForm() {
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
+  useEffect(() => {
+
+  }, [errors])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const spotData = {
-      address,
-      city,
-      state,
-      lat: 0.1,
-      lng: 0.1,
-      country,
-      name,
-      description,
-      price
-    }
-
-    const spotImageData = [
-      {
-        url: previewImage,
-        preview: true
-      },
-      {
-        url: image1,
-        preview: true
-      },
-      {
-        url: image2,
-        preview: true
-      },
-      {
-        url: image3,
-        preview: true
-      },
-      {
-        url: image4,
-        preview: true
+      const spotData = {
+        address,
+        city,
+        state,
+        lat: 0.1,
+        lng: 0.1,
+        country,
+        name,
+        description,
+        price
       }
-    ]
 
-    const data = await dispatch(thunkCreateSpot(spotData, spotImageData))
-    if (typeof data !== "number") {
-      const errorMessages = {...data.errors}
-      if (!previewImage) {
-        errorMessages.previewImage = "Preview image is required"
+      const spotImageData = [
+        {
+          url: previewImage,
+          preview: true
+        },
+        {
+          url: image1,
+          preview: true
+        },
+        {
+          url: image2,
+          preview: true
+        },
+        {
+          url: image3,
+          preview: true
+        },
+        {
+          url: image4,
+          preview: true
+        }
+      ]
+
+      const data = await dispatch(thunkCreateSpot(spotData, spotImageData))
+      if (typeof data !== "number") {
+        console.log(data)
+        const errorMessages = {...data}
+        setErrors(errorMessages)
+      } else {
+        navigate(`/spots/${data}`)
       }
-      setErrors(errorMessages)
-    } else {
-      navigate(`/spots/${data}`)
-    }
+
 
   }
   return (
@@ -177,6 +179,7 @@ function SpotForm() {
             placeholder="Image URL"
             onChange={(e) => setImage1(e.target.value)}
           />
+          {'image1' in errors && <p style={{color: 'red'}}>{errors.image1}</p>}
           <input
             type="url"
             id="image2"
@@ -184,6 +187,7 @@ function SpotForm() {
             placeholder="Image URL"
             onChange={(e) => setImage2(e.target.value)}
           />
+          {'image2' in errors && <p style={{color: 'red'}}>{errors.image2}</p>}
           <input
             type="url"
             id="image3"
@@ -191,6 +195,7 @@ function SpotForm() {
             placeholder="Image URL"
             onChange={(e) => setImage3(e.target.value)}
           />
+          {'image3' in errors && <p style={{color: 'red'}}>{errors.image3}</p>}
           <input
             type="url"
             id="image4"
@@ -198,6 +203,7 @@ function SpotForm() {
             placeholder="Image URL"
             onChange={(e) => setImage4(e.target.value)}
           />
+          {'image4' in errors && <p style={{color: 'red'}}>{errors.image4}</p>}
         </div>
         <button type="submit">Create Spot</button>
       </form>

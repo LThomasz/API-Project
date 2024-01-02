@@ -5,7 +5,7 @@ function ManageSpotItem({spot}) {
 
   return (
     <div className="spot-card-item">
-      <Link to={`/spots/${spot.id}`}  style={{ textDecoration: 'none' }}>
+      <Link to={`/spots/${spot.id}`}  style={{ textDecoration: 'none', color: 'black' }} >
       <div className="spot-card">
         <div className="image-container">
           <img title={`${spot.name}`} className="spot-card-image" src={spot.previewImage == "No preview image available." ? `https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg` : spot.previewImage} alt="" />

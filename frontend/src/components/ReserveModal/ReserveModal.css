@@ -1,0 +1,10 @@
+.reserve-div {
+  height: 100px;
+  width: 450px;
+  display: flex;
+  justify-content: center;
+}
+
+.reserve-div h1 {
+  padding-top: 5px;
+}

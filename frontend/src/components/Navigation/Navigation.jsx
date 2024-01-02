@@ -17,7 +17,7 @@ function Navigation({ isLoaded }) {
           <p>Ground Bnb</p>
       </li>
       {sessionUser && <li>
-        <NavLink to='/spots/new'>Create a New Spot</NavLink>
+        <NavLink to='/spots/new' style={{textDecoration: "none", color: 'black', fontSize: '18px'}}>Create a New Spot</NavLink>
       </li>}
       {isLoaded && (
         <li>

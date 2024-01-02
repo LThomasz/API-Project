@@ -3,6 +3,7 @@ import { thunkGetOneSpot } from "../../store/spots";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Reviews from "../Reviews/Reviews";
+import Reserve from "../ReserveModal/Reserve";
 import './SpotPage.css'
 function SpotPage() {
   const [state, setState] = useState(false);
@@ -74,7 +75,7 @@ function SpotPage() {
               </p>
             </div>
             <div className="reserve-button">
-              <button>Reserve</button>
+              <Reserve />
             </div>
           </div>
         </div>

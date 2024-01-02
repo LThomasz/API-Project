@@ -64,6 +64,62 @@ export const thunkGetOneSpot = (spotId) => async (dispatch) => {
 }
 
 export const thunkCreateSpot = (spotData, spotImageData) => async (dispatch) => {
+  const errors = {};
+  if (!spotData.address) {
+    errors.address = 'Address is required'
+  }
+  if (!spotData.country) {
+    errors.country = 'Country is required'
+  }
+  if (!spotData.city) {
+    errors.city = 'City is required'
+  }
+  if (!spotData.state) {
+    errors.state = 'State is required'
+  }
+  if (!spotData.description) {
+    errors.description = 'Description needs a minimum of 30 characters'
+  }
+  if (!spotData.name) {
+    errors.name = 'Name is required'
+  }
+  if (!spotData.price) {
+    errors.price = 'Price is required'
+  }
+  if (!spotImageData[0].url) {
+    errors.previewImage = "Preview image is required"
+  }
+  function includeCheck(thing) {
+    const endings = ['.png', '.jpg', '.jpeg'];
+    for (let el of endings) {
+      if (thing.includes(el)) {
+        return true
+      }
+    }
+    return false
+  }
+  if (spotImageData[0].url && !includeCheck(spotImageData[0].url)) {
+    errors.previewImage = "Image URL must end in .png, .jpg, or .jpeg"
+  }
+  if (spotImageData[1].url && !includeCheck(spotImageData[1].url)) {
+    errors.image1 = "Image URL must end in .png, .jpg, or .jpeg"
+  }
+  if (spotImageData[2].url && !includeCheck(spotImageData[2].url)) {
+    errors.image2 = "Image URL must end in .png, .jpg, or .jpeg"
+  }
+  if (spotImageData[3].url && !includeCheck(spotImageData[3].url)) {
+    errors.image3 = "Image URL must end in .png, .jpg, or .jpeg"
+  }
+  if (spotImageData[4].url && !includeCheck(spotImageData[4].url)) {
+    errors.image4 = "Image URL must end in .png, .jpg, or .jpeg"
+  }
+
+  if (Object.values(errors).length) {
+    console.log("slime")
+    return errors
+  }
+
+
   try {
     const res = await csrfFetch("/api/spots", {
       method: 'POST',
@@ -72,26 +128,19 @@ export const thunkCreateSpot = (spotData, spotImageData) => async (dispatch) => 
       },
       body: JSON.stringify(spotData)
     })
-    console.log("create spot res", res);
       const data = await res.json();
-      console.log("create spot data", data)
-
-      console.log("This is the spotImageData", spotImageData)
       for (let obj of spotImageData) {
         if (obj.url) {
-          console.log("image data", obj)
-          const imageRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+          await csrfFetch(`/api/spots/${data.id}/images`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(obj)
           });
-          console.log("adding images i think", imageRes)
-          await dispatch(createSpot(data))
         }
       }
+      await dispatch(createSpot(data))
       return data.id;
   } catch (error) {
-    console.log(error)
     const data = await error.json();
     return data
   }

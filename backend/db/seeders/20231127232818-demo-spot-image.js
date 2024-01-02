@@ -120,6 +120,31 @@ module.exports = {
       url: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       preview: true
     },
+    {
+      spotId: 5,
+      url: 'https://images.unsplash.com/photo-1682687982046-e5e46906bc6e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      preview: true
+    },
+    {
+      spotId: 5,
+      url: 'https://images.unsplash.com/photo-1702589240175-53d887424963?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      preview: true
+    },
+    {
+      spotId: 5,
+      url: 'https://images.unsplash.com/photo-1502726299822-6f583f972e02?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      preview: true
+    },
+    {
+      spotId: 5,
+      url: 'https://images.unsplash.com/photo-1530053969600-caed2596d242?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHVuZGVyd2F0ZXIlMjBjYXN0bGV8ZW58MHx8MHx8fDA%3D',
+      preview: true
+    },
+    {
+      spotId: 5,
+      url: 'https://images.unsplash.com/photo-1525467187333-8e3f68b8e742?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      preview: true
+    },
    ], { validate: true});
   },
 

@@ -9,3 +9,13 @@
   align-items: flex-end;
 
 }
+
+.new-hr {
+  border-top: 2px solid black;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
