@@ -44,19 +44,19 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     },
     address: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     city: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     state: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     country: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     lat: {
@@ -76,7 +76,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     name: {
-      type: DataTypes.STRING(49),
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     description: {
