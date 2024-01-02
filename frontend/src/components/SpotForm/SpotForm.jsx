@@ -57,24 +57,6 @@ function SpotForm() {
         preview: true
       }
     ]
-    // const extraImageData = [
-    //   {
-    //     url: image1,
-    //     preview: true
-    //   },
-    //   {
-    //     url: image2,
-    //     preview: true
-    //   },
-    //   {
-    //     url: image3,
-    //     preview: true
-    //   },
-    //   {
-    //     url: image4,
-    //     preview: true
-    //   }
-    // ]
 
     const data = await dispatch(thunkCreateSpot(spotData, spotImageData))
     if (typeof data !== "number") {

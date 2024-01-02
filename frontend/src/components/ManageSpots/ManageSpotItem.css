@@ -1,10 +1,47 @@
 .spot-card-item {
   display: inline-block;
   width: calc(100% * (1/4) - 11px);
+  height: 70%;
   padding: 3px;
   margin: 2px;
 }
 
+.spot-card {
+  max-height: 30vh;
+  margin-bottom: 15px;
+}
+
+.image-container {
+
+}
+
 .spot-card-image {
+  display: flex;
+  flex-shrink: 1;
   width: 100%;
+  height: 80%;
+  object-fit: cover;
+}
+
+.spot-card-stuff {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.spot-card-stuff p {
+  margin: 4px;
+}
+
+.price p {
+  margin: 4px;
+}
+
+.manage-spots-buttons {
+  display: flex;
+}
+
+.manage-spots-buttons button {
+  margin: 10px 5px 0px 5px;
+  padding: 2px 12px;
 }

@@ -55,7 +55,7 @@ function SpotPage() {
               <img className="spot-image-tile" src={checkImages(3)} alt="" />
             </div>
             <div className="secondary-images">
-              <img className="spot-image-tile" src={checkImages()} alt="" />
+              <img className="spot-image-tile" src={checkImages(4)} alt="" />
             </div>
           </div>
         </div>

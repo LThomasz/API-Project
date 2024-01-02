@@ -8,7 +8,8 @@
 .profile-logo {
   padding-left: 8px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .profile-logo p {

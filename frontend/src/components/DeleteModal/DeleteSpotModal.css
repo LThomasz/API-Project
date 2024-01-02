@@ -1,0 +1,22 @@
+.delete-spot-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+}
+
+.delete-spot-container button {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 92%;
+  box-shadow: 2px 2px 2px black;
+}
+
+.delete-spot-container h1 {
+  margin: 10px 0px 0px 0px;
+}
+
+.delete-spot-container p {
+  font-size: 18px;
+}

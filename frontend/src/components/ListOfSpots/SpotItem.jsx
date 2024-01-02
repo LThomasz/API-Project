@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import './SpotItem.css'
 function SpotItem({spot}) {
   return (
-    <Link to={`/spots/${spot.id}`} className="spot-card-item">
-    <div>
-      <img title={`${spot.name}`} className="spot-card-image" src={spot.previewImage == "No preview image available." ? `https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg` : spot.previewImage} alt="" />
+    <Link to={`/spots/${spot.id}`} style={{ textDecoration: 'none' }} className="spot-card-item">
+    <div className="spot-card">
+      <div className="image-container">
+        <img title={`${spot.name}`} className="spot-card-image" src={spot.previewImage == "No preview image available." ? `https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg` : spot.previewImage} alt="" />
+      </div>
       <div className="spot-card-stuff">
         <p>{spot.city}, {spot.state}</p>
         <p>

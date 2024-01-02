@@ -4,4 +4,8 @@
 
 .fa-user-circle {
   margin: 6px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
 }

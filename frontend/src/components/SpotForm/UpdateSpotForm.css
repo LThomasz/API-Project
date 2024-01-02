@@ -1,0 +1,90 @@
+.update-spot-form-container {
+
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.update-form-sub-container {
+  display: flex;
+  width: 40%;
+}
+
+.update-spot-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-spot-form button {
+  padding: 5px;
+}
+
+.update-section-one {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.update-section-two {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.update-section-three {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-section-three textarea {
+  resize: none;
+  height: 140px;
+}
+
+.update-section-four {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-section-five {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-price-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.update-price-container input {
+  width: 100%;
+}
+
+.update-price-container p {
+  margin-right: 5px;
+}
+
+.update-city-input-div  {
+  width: 58%;
+}
+
+.update-state-input-div  {
+  width: 40%;
+}
+
+.update-state-input-div input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.update-city-input-div input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+label {
+  display: flex;
+  align-items: center;
+}

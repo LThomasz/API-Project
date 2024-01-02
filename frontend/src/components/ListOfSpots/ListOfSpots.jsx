@@ -12,15 +12,17 @@ function ListOfSpots() {
   }, [dispatch])
 
   return (
-    <div className="spot-list">
-      {spots.map((spot) => (
-        <SpotItem
-          spot={spot}
-          key={spot.id}
-        />
-      ))}
+    <div className="spot-list-container">
+      <div className="spot-list">
+        {spots.map((spot) => (
+          <SpotItem
+            spot={spot}
+            key={spot.id}
+          />
+        ))}
+      </div>
     </div>
-  )
+    )
 }
 
 export default ListOfSpots;
