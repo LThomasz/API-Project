@@ -37,7 +37,7 @@ function SpotPage() {
   return (
     <div className="spot-info-container">
       <div className="spot-info-sub">
-        <div>
+        <div className="name-and-location">
           <h1>{spot.name}</h1>
           <h2>Location: {spot.city}, {spot.state}, {spot.country}</h2>
         </div>
@@ -63,7 +63,7 @@ function SpotPage() {
         <div className="secondary-info-container">
           <div className="description-section">
             {/* Object.values(spot.Owner).slice(1).join(' ') */}
-            <p>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</p>
+            <p className="hosted-p">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</p>
             <p>{spot.description}</p>
           </div>
           <div className="reserve-section">
@@ -74,7 +74,7 @@ function SpotPage() {
                 {typeof spot.avgRating === 'string' ? 'New' : (spot.avgRating % 1 == 0 ? spot.avgRating.toFixed(1) : spot.avgRating)} {typeof spot.numReviews === 'string' ? null : spot.numReviews == 1 ? `· ${spot.numReviews} review` : `· ${spot.numReviews} reviews`}
               </p>
             </div>
-            <div className="reserve-button">
+            <div className="reserve-button" >
               <Reserve />
             </div>
           </div>

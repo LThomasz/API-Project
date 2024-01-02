@@ -16,7 +16,11 @@
 }
 
 .update-spot-form button {
+  font-size: 16px;
   padding: 5px;
+  box-shadow: 2px 2px 2px black;
+  color: white;
+  background-color: red;
 }
 
 .update-section-one {

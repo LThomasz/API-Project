@@ -15,6 +15,8 @@ function ManageSpots() {
     dispatch(thunkGetUserSpots())
   }, [dispatch])
   return (
+    <>
+    <h1 className="manage-spots">Manage Spots</h1>
     <div className="spot-list">
     {userSpots.length ? userSpots.map((spot) => (
       <ManageSpotItem
@@ -23,10 +25,11 @@ function ManageSpots() {
       />
     )) : (
       <NavLink to='/spots/new'>
-        <button>Create a Spot</button>
+        <button style={{boxShadow: '2px 2px 2px black'}}>Create a New Spot</button>
       </NavLink>
     )}
     </div>
+    </>
 
   )
 }

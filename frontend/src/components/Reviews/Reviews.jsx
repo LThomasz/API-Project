@@ -78,7 +78,7 @@ function Reviews({spotId, avgRating, numReviews, spot, change}) {
             <DeleteReview reviewId={rev.id} spotId={spotId} change={change}/>
           </div>}
         </div>
-      )) : ( user.firstName != spot.Owner.firstName &&
+      )) : ( user && user.firstName != spot.Owner.firstName &&
         <h3>Be the first to post a review!</h3>
       )}
     </div>

@@ -20,6 +20,9 @@
 
 .new-review-form button {
   padding: 10px;
+  box-shadow: 2px 2px 2px black;
+  color: white;
+  background-color: red;
 }
 
 .review-header {

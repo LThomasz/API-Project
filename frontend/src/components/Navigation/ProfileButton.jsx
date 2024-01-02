@@ -53,7 +53,7 @@ function ProfileButton({ user }) {
             <li>Hello, {user.firstName}</li>
             <li>{user.username}</li>
             <li>{user.email} <hr className='new-hr'/> </li>
-            <li><NavLink to='/spots/current'>Manage Spots <hr style={{textDecoration: "none", color: "black"}}/></NavLink></li>
+            <li><NavLink to='/spots/current' style={{textDecoration: "none", color: "black"}}>Manage Spots <hr style={{textDecoration: "none", color: "black"}}/></NavLink></li>
             <li className='logout-button'>
               <button onClick={logout}>Log Out</button>
             </li>

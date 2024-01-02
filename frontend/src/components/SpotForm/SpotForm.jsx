@@ -77,7 +77,7 @@ function SpotForm() {
       <div className="form-sub-container">
       <form onSubmit={handleSubmit} className="new-spot-form">
         <div>
-          <h1>Create a new Spot</h1>
+          <h1>Create a New Spot</h1>
         </div>
         <div className="section-one">
           <h2>Where&apos;s your place located?</h2>
@@ -122,20 +122,22 @@ function SpotForm() {
             />
           </div>
         </div>
+        <hr className="spot-form-hr"  />
         <div className="section-three">
           <h2>Describe your place to guests</h2>
-          <label htmlFor="description">Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</label>
+          <label htmlFor="description" style={{padding: '0px 0px 3px 0px'}}>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</label>
           <textarea
             id="description"
             value={description}
             placeholder="Please write at least 30 characters"
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
-          {'description' in errors && <p style={{color: 'red'}}>{errors.description}</p>}
+          {'description' in errors && <p style={{color: 'red', marginBottom: '0px'}}>{errors.description}</p>}
         </div>
+        <hr className="spot-form-hr" />
         <div className="section-four">
           <h2>Create a title for your spot</h2>
-          <label htmlFor="name">Catch guests&apos; attention with a spot title that highlights what makes your place special.</label>
+          <label htmlFor="name" style={{padding: '0px 0px 3px 0px'}}>Catch guests&apos; attention with a spot title that highlights what makes your place special.</label>
           <input
             type="text"
             id="name"
@@ -143,8 +145,9 @@ function SpotForm() {
             placeholder="Name of your spot"
             onChange={(e) => setName(e.target.value)}
           />
-          {'name' in errors && <p style={{color: 'red'}}>{errors.name}</p>}
+          {'name' in errors && <p style={{color: 'red', marginBottom: '0px'}}>{errors.name}</p>}
         </div>
+        <hr className="spot-form-hr" />
         <div className="section-five">
           <h2>Set a base price for your spot</h2>
           <label htmlFor="price">Competitive pricing can help your listing stand out and rank higher in search results.</label>
@@ -152,15 +155,16 @@ function SpotForm() {
               <p>$</p>
               <input
                 id="price"
-                type="text"
+                type="number"
                 inputMode="numeric"
                 value={price}
                 placeholder="Price per night (USD)"
                 onChange={(e) => setPrice(e.target.value)}
               />
-              {'price' in errors && <p style={{color: 'red'}}>{errors.price}</p>}
             </div>
+              {'price' in errors && <p style={{color: 'red', marginBottom: '0px'}}>{errors.price}</p>}
         </div>
+        <hr className="spot-form-hr" />
         <div className="section-six">
           <h2>Liven up your spot with photos</h2>
           <label htmlFor="previewImage">Submit a link to at least one photo to publish your spot.</label>
@@ -205,6 +209,7 @@ function SpotForm() {
           />
           {'image4' in errors && <p style={{color: 'red'}}>{errors.image4}</p>}
         </div>
+        <hr className="spot-form-hr" />
         <button type="submit">Create Spot</button>
       </form>
       </div>

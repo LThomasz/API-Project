@@ -2,7 +2,7 @@
 # GroundBnb
 <!--!!END -->
 <!--!!ADD -->
-<!-- # `<name of application here>` -->
+<!--  `<name of application here>` -->
 <!--!!END_ADD -->
 
 ## Database Schema Design

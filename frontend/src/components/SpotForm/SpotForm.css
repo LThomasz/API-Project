@@ -17,7 +17,11 @@
 }
 
 .new-spot-form button {
+  font-size: 15px;
   padding: 5px;
+  color: white;
+  background-color: red;
+  box-shadow: 2px 2px 2px black;
 }
 
 .section-one {
